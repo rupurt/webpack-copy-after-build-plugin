@@ -1,0 +1,23 @@
+{
+  "name": "webpack-copy-after-build-plugin",
+  "version": "1.0.0",
+  "description": "Copy files from a Webpack build",
+  "main": "index.js",
+  "scripts": {
+    "test": "TODO test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rupurt/webpack-copy-after-build-plugin.git"
+  },
+  "keywords": [
+    "webpack",
+    "copy"
+  ],
+  "author": "Alex Kwiatkowski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rupurt/webpack-copy-after-build-plugin/issues"
+  },
+  "homepage": "https://github.com/rupurt/webpack-copy-after-build-plugin#readme"
+}
