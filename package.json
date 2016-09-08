@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/rupurt/webpack-copy-after-build-plugin/issues"
   },
-  "homepage": "https://github.com/rupurt/webpack-copy-after-build-plugin#readme"
+  "homepage": "https://github.com/rupurt/webpack-copy-after-build-plugin#readme",
+  "dependencies": {
+    "fs-extra": "^0.30.0"
+  }
 }
