@@ -16,7 +16,15 @@ WebpackCopyAfterBuildPlugin.prototype.apply = function(compiler) {
       var mapping = mappings[bundleName];
 
       if (mapping) {
-        var outputPath = compiler.options.output.path;
+        var devServer = compiler.options.devServer;
+        var outputPath;
+
+        if (devServer && devServer.contentBase) {
+          outputPath = devServer.contentBase;
+        } else {
+          outputPath = compiler.options.output.path;
+        }
+
         var webpackContext = compiler.options.context;
         var chunkHashFileName = chunk.files[0];
         var from = webpackContext + "/" + outputPath + "/" + chunkHashFileName;
