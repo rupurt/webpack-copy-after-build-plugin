@@ -12,8 +12,8 @@ WebpackCopyAfterBuildPlugin.prototype.apply = function(compiler) {
     var chunks = statsJson.chunks;
 
     chunks.forEach(function(chunk) {
-      var bundleName = chunk.names[0];
-      var mapping = mappings[bundleName];
+      var chunkName = chunk.names[0];
+      var mapping = mappings[chunkName];
 
       if (mapping) {
         var devServer = compiler.options.devServer;
@@ -25,10 +25,9 @@ WebpackCopyAfterBuildPlugin.prototype.apply = function(compiler) {
           outputPath = compiler.options.output.path;
         }
 
-        var webpackContext = compiler.options.context;
-        var chunkHashFileName = chunk.files[0];
-        var from = webpackContext + "/" + outputPath + "/" + chunkHashFileName;
-        var to = webpackContext + "/" + outputPath + "/" + mapping;
+        var chunkFilename = chunk.files[0];
+        var from = outputPath + "/" + chunkFilename;
+        var to = outputPath + "/" + mapping;
 
         fse.copySync(from, to);
       }
