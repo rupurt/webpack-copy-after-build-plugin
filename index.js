@@ -1,11 +1,13 @@
 var fse = require("fs-extra");
 
-function WebpackCopyAfterBuildPlugin(mappings) {
+function WebpackCopyAfterBuildPlugin(mappings, options) {
   this._mappings = mappings || {};
+  this._options = options || {};
 }
 
 WebpackCopyAfterBuildPlugin.prototype.apply = function(compiler) {
   var mappings = this._mappings;
+  var options  = this._options;
 
   compiler.plugin("done", function(stats) {
     var statsJson = stats.toJson();
@@ -27,7 +29,13 @@ WebpackCopyAfterBuildPlugin.prototype.apply = function(compiler) {
 
         var chunkFilename = chunk.files[0];
         var from = outputPath + "/" + chunkFilename;
-        var to = outputPath + "/" + mapping;
+        var to;
+
+        if( options.absoluteMappingPaths ){
+          to = mapping;
+        } else {
+          to = outputPath + "/" + mapping;
+        }
 
         fse.copySync(from, to);
       }

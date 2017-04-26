@@ -64,3 +64,13 @@ Require the build artifact via a sprockets directive
 // app/assets/javascripts/application.js
 //= require ./generated/webpack-application-bundle
 ```
+
+Options and Defaults
+---------------------
+
+```javascript
+{
+  // The path that you give as the destination will be taken as absolute if this flag is set 
+  absoluteMappingPaths : false
+}
+```
