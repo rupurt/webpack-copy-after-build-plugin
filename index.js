@@ -7,6 +7,7 @@ function WebpackCopyAfterBuildPlugin(mappings, options) {
 
 WebpackCopyAfterBuildPlugin.prototype.apply = function(compiler) {
   var mappings = this._mappings;
+  var options  = this._mappings;
 
   compiler.plugin("done", function(stats) {
     var statsJson = stats.toJson();
