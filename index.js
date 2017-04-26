@@ -30,7 +30,7 @@ WebpackCopyAfterBuildPlugin.prototype.apply = function(compiler) {
         var from = outputPath + "/" + chunkFilename;
         var to;
 
-        if( options.absoluteMappingPaths){
+        if( options.absoluteMappingPaths ){
           to = mapping;
         } else {
           to = outputPath + "/" + mapping;
