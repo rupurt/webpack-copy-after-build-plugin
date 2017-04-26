@@ -28,10 +28,12 @@ WebpackCopyAfterBuildPlugin.prototype.apply = function(compiler) {
 
         var chunkFilename = chunk.files[0];
         var from = outputPath + "/" + chunkFilename;
-        var to = outputPath + "/" + mapping;
+        var to;
 
-        if( options.absoluteMappingPaths === true ){
+        if( options.absoluteMappingPaths){
           to = mapping;
+        } else {
+          to = outputPath + "/" + mapping;
         }
 
         fse.copySync(from, to);
