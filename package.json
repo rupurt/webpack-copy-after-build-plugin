@@ -1,6 +1,6 @@
 {
   "name": "webpack-copy-after-build-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Copy files from a Webpack build",
   "main": "index.js",
   "scripts": {
