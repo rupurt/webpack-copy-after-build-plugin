@@ -1,46 +1,76 @@
-var fse = require("fs-extra");
+const fse = require("fs-extra");
+const path = require('path');
 
-function WebpackCopyAfterBuildPlugin(mappings, options) {
-  this._mappings = mappings || {};
-  this._options = options || {};
+function WebpackCopyAfterBuildPlugin(mappings, options, folders) {
+    this._mappings = mappings || {};
+    this._options = options || {};
+    this._folders = folders || [];
 }
 
 WebpackCopyAfterBuildPlugin.prototype.apply = function(compiler) {
-  var mappings = this._mappings;
-  var options  = this._options;
+    const mappings = this._mappings;
+    const options  = this._options;
+    const folders = this._folders;
 
-  compiler.plugin("done", function(stats) {
-    var statsJson = stats.toJson();
-    var chunks = statsJson.chunks;
-
-    chunks.forEach(function(chunk) {
-      var chunkName = chunk.names[0];
-      var mapping = mappings[chunkName];
-
-      if (mapping) {
-        var devServer = compiler.options.devServer;
-        var outputPath;
-
-        if (devServer && devServer.contentBase) {
-          outputPath = devServer.contentBase;
+    const mapTo = (mapping, outputPath) => {
+        let to;
+        if ( options.absoluteMappingPaths ){
+            to = mapping;
+        } else if (options.dirname) {
+            to = path.resolve(options.dirname, mapping);
         } else {
-          outputPath = compiler.options.output.path;
+            to = outputPath + "/" + mapping;
         }
+        return to;
+    };
 
-        var chunkFilename = chunk.files[0];
-        var from = outputPath + "/" + chunkFilename;
-        var to;
+    const copyFolder = (from, to) => {
+        let fromPath;
+        let toPath;
 
-        if( options.absoluteMappingPaths ){
-          to = mapping;
+        if (options.dirname) {
+            fromPath = path.resolve(options.dirname, from);
+            toPath = path.resolve(options.dirname, to);
         } else {
-          to = outputPath + "/" + mapping;
+            fromPath = from;
+            toPath = to;
         }
+        fse.copySync(fromPath, toPath);
+    }
 
-        fse.copySync(from, to);
-      }
+    compiler.plugin("done", function(stats) {
+        const statsJson = stats.toJson();
+        const chunks = statsJson.chunks;
+        chunks.forEach(function(chunk) {
+            const chunkName = chunk.names[0];
+            let mapping = mappings[chunkName];
+            if (mapping) {
+                const devServer = compiler.options.devServer;
+                let outputPath;
+
+                if (devServer && devServer.contentBase) {
+                    outputPath = devServer.contentBase;
+                } else {
+                    outputPath = compiler.options.output.path;
+                }
+
+                let chunkFilename = chunk.files[0];
+                const from = outputPath + "/" + chunkFilename;
+                let to;
+
+                if(!Array.isArray(mapping)){
+                    mapping = [mapping]
+                }
+                mapping.forEach( (mapEntry) => {
+                    to = mapTo(mapEntry, outputPath);
+                    fse.copySync(from, to);
+                });
+            }
+        });
+        folders.forEach( (fromTo) => {
+            copyFolder(fromTo[0], fromTo[1])
+        });
     });
-  });
 };
 
 module.exports = WebpackCopyAfterBuildPlugin;
