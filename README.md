@@ -1,9 +1,12 @@
 Webpack Copy After Build Plugin
 ===============================
 
-A webpack plugin that allows webpack build artifacts to be included via sprockets
+A webpack plugin that allows webpack build artifacts to be copied into custom paths. 
+For example to be included via sprockets
 directives. This helps reduce the onboarding time and friction when introducing 
 Webpack into a legacy Rails application.
+Or simplifies your build setups or development workflow when using builds from IDEs as IntelliJ which may use different
+output directories. For example in connection with SpringBoot builds.
 
 Install
 -------
@@ -48,7 +51,13 @@ var config = {
     new WebpackCopyAfterBuildPlugin({
       "webpack-application-bundle":
       "../../app/assets/javascripts/generated/webpack-application-bundle.js",
-    })
+    }, {
+        // options
+    }, [
+        // folders to copy
+        // [from, to], [from, to], ...
+    ]
+    )
   ]
 };
 ```
@@ -71,6 +80,21 @@ Options and Defaults
 ```javascript
 {
   // The path that you give as the destination will be taken as absolute if this flag is set 
-  absoluteMappingPaths : false
+  absoluteMappingPaths : false,
+  // A path that will be resolved with
+  dirname : __dirname
 }
+```
+
+Copying Folders
+---------------------
+
+```javascript
+[
+  // Array of arrays of src and dest folders. 
+  // Either as relative paths to be resolved with the dirname option, or as absolute paths
+  ['./src/file1', './dest/file1'],
+  ['./src/file2', './dest/file2']
+  
+]
 ```
