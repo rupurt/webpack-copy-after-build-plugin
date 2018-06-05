@@ -49,7 +49,7 @@ afterEach( (done) => {
 
 it('Should copy a bundle to the provided folder', () => {
     options.plugins = [
-        new WebpackCopyAfterBuildPlugin({
+        new WebpackCopyAfterBuildPlugin('done', {
             application: '../copied_bundles_one/application.js'
         }, {
             absoluteMappingPaths: false
@@ -69,7 +69,7 @@ it('Should copy a bundle to the provided folder', () => {
 
 it('Should copy a bundle to the provided folder into the given directory', () => {
     options.plugins = [
-        new WebpackCopyAfterBuildPlugin({
+        new WebpackCopyAfterBuildPlugin('done', {
             application: 'copied_bundles_one/application.js'
         }, {
             dirname: path.resolve(__dirname, '../withdirname'),
@@ -89,7 +89,7 @@ it('Should copy a bundle to the provided folder into the given directory', () =>
 
 it('Should copy a bundle to the provided folders', (done) => {
     options.plugins = [
-        new WebpackCopyAfterBuildPlugin({
+        new WebpackCopyAfterBuildPlugin('done', {
             application:
                 ['../copied_bundles_one/application.js',
                     '../copied_bundles_two/application.js']
@@ -112,7 +112,7 @@ it('Should copy a bundle to the provided folders', (done) => {
 
 it('Should copy a bundle to the provided folders with absoluteMappingPaths', (done) => {
     options.plugins = [
-        new WebpackCopyAfterBuildPlugin({
+        new WebpackCopyAfterBuildPlugin('done', {
             application:
                 [path.resolve(__dirname, '../copied_bundles_one/application.js'),
                     path.resolve(__dirname, '../copied_bundles_two/application.js')]
@@ -135,7 +135,7 @@ it('Should copy a bundle to the provided folders with absoluteMappingPaths', (do
 
 it('Should copy folders', (done) => {
     options.plugins = [
-        new WebpackCopyAfterBuildPlugin({
+        new WebpackCopyAfterBuildPlugin('done', {
         }, {
             dirname: __dirname,
             absoluteMappingPaths: false
@@ -157,7 +157,7 @@ it('Should copy folders', (done) => {
 
 it('Should copy folders with absolute paths', (done) => {
     options.plugins = [
-        new WebpackCopyAfterBuildPlugin({
+        new WebpackCopyAfterBuildPlugin('done', {
         }, {
         }, [
             [path.resolve(__dirname,'./assets'), path.resolve(__dirname,'../copied-assets')]

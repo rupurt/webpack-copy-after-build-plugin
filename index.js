@@ -1,16 +1,18 @@
 const fse = require("fs-extra");
 const path = require('path');
 
-function WebpackCopyAfterBuildPlugin(mappings, options, folders) {
+function WebpackCopyAfterBuildPlugin(eventHook, mappings, options, folders) {
     this._mappings = mappings || {};
     this._options = options || {};
     this._folders = folders || [];
+    this._eventHook = eventHook || '';
 }
 
 WebpackCopyAfterBuildPlugin.prototype.apply = function(compiler) {
     const mappings = this._mappings;
     const options  = this._options;
     const folders = this._folders;
+    const eventHook = this._eventHook;
 
     const mapTo = (mapping, outputPath) => {
         let to;
@@ -38,7 +40,7 @@ WebpackCopyAfterBuildPlugin.prototype.apply = function(compiler) {
         fse.copySync(fromPath, toPath);
     }
 
-    compiler.plugin("done", function(stats) {
+    compiler.plugin(eventHook, function(stats) {
         const statsJson = stats.toJson();
         const chunks = statsJson.chunks;
         chunks.forEach(function(chunk) {

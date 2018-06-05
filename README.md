@@ -19,6 +19,13 @@ Configuration
 -------------
 
 Configure the plugin to copy the required bundles
+This example will copy the webpack-application-bundle.js from the webpack output folder to the given relative path (../../copy/to/this/path/webpack-application-bundle.js)
+
+Parameters:<br />
+Webpack compiler eventHook name, see https://webpack.js.org/api/compiler-hooks/<br />
+webpack build copy definitions as { entrypoint-name: path or [paths]}<br />
+options<br />
+copy folders definition as [ [src, dest], [src, dest], ... ]<br />
 
 ```javascript
 // client/webpack.config.js
@@ -42,7 +49,7 @@ var config = {
   plugins: [
     new WebpackSprocketsRailsManifestPlugin(),
 
-    new WebpackCopyAfterBuildPlugin({
+    new WebpackCopyAfterBuildPlugin('done', {
       "webpack-application-bundle":
       "../../copy/to/this/path/webpack-application-bundle.js",
     }, {
