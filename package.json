@@ -1,7 +1,7 @@
 {
-  "name": "webpack-copy-after-build-plugin",
-  "version": "1.1.1",
-  "description": "Copy files from a Webpack build",
+  "name": "webpack-copy-on-plugin",
+  "version": "1.0.0",
+  "description": "Copy files with Webpack",
   "main": "index.js",
   "scripts": {
     "test": "jest --verbose --no-cache",
@@ -10,18 +10,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rupurt/webpack-copy-after-build-plugin.git"
+    "url": "git+https://github.com/webforgeeu/webpack-copy-on-plugin.git"
   },
   "keywords": [
     "webpack",
     "copy"
   ],
-  "author": "Alex Kwiatkowski",
+  "author": "Lars Eggert",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rupurt/webpack-copy-after-build-plugin/issues"
+    "url": "https://github.com/webforgeeu/webpack-copy-on-plugin/issues"
   },
-  "homepage": "https://github.com/rupurt/webpack-copy-after-build-plugin#readme",
+  "homepage": "https://github.com/webforgeeu/webpack-copy-on-plugin/#readme",
   "dependencies": {
     "fs-extra": "^0.30.0"
   },

@@ -1,30 +1,24 @@
-Webpack Copy After Build Plugin
+Webpack Copy On Plugin
 ===============================
 
 A webpack plugin that allows webpack build artifacts to be copied into custom paths. 
 For example to be included via sprockets
-directives. This helps reduce the onboarding time and friction when introducing 
-Webpack into a legacy Rails application.
-Or simplifies your build setups or development workflow when using builds from IDEs as IntelliJ which may use different
+directives. The idea is to simplify your build setups or development workflow when using builds from IDEs as IntelliJ which may use different
 output directories. For example in connection with SpringBoot builds.
+
+Based on the webpack-copy-after-build-plugin, thanks to https://github.com/rupurt 
 
 Install
 -------
 
 ```bash
-npm install webpack-copy-after-build-plugin --save
+npm install webpack-copy-on-plugin --save
 ```
 
 Configuration
 -------------
 
-Create a directory in the asset pipeline which will receive copied build files e.g.
-
-```
-mkdir -p app/assets/javascripts/generated
-```
-
-Configure the plugin to copy the required bundles into the asset pipeline
+Configure the plugin to copy the required bundles
 
 ```javascript
 // client/webpack.config.js
@@ -50,7 +44,7 @@ var config = {
 
     new WebpackCopyAfterBuildPlugin({
       "webpack-application-bundle":
-      "../../app/assets/javascripts/generated/webpack-application-bundle.js",
+      "../../copy/to/this/path/webpack-application-bundle.js",
     }, {
         // options
     }, [
@@ -62,17 +56,6 @@ var config = {
 };
 ```
 
-```javascript
-// client/bundles/webpack-application.js
-alert("Howdy, I'm a Webpack Javascript file that was required by a sprockets directive!");
-```
-
-Require the build artifact via a sprockets directive
-
-```javascript
-// app/assets/javascripts/application.js
-//= require ./generated/webpack-application-bundle
-```
 
 Options and Defaults
 ---------------------
