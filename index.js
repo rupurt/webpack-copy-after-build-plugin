@@ -1,14 +1,14 @@
 const fse = require("fs-extra");
 const path = require('path');
 
-function WebpackCopyAfterBuildPlugin(eventHook, mappings, options, folders) {
+function WebpackCopyOnPlugin(eventHook, mappings, options, folders) {
     this._mappings = mappings || {};
     this._options = options || {};
     this._folders = folders || [];
     this._eventHook = eventHook || '';
 }
 
-WebpackCopyAfterBuildPlugin.prototype.apply = function(compiler) {
+WebpackCopyOnPlugin.prototype.apply = function(compiler) {
     const mappings = this._mappings;
     const options  = this._options;
     const folders = this._folders;
@@ -38,7 +38,7 @@ WebpackCopyAfterBuildPlugin.prototype.apply = function(compiler) {
             toPath = to;
         }
         fse.copySync(fromPath, toPath);
-    }
+    };
 
     compiler.plugin(eventHook, function(stats) {
         const statsJson = stats.toJson();
@@ -75,4 +75,4 @@ WebpackCopyAfterBuildPlugin.prototype.apply = function(compiler) {
     });
 };
 
-module.exports = WebpackCopyAfterBuildPlugin;
+module.exports = WebpackCopyOnPlugin;

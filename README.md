@@ -30,7 +30,6 @@ copy folders definition as [ [src, dest], [src, dest], ... ]<br />
 ```javascript
 // client/webpack.config.js
 var path = require("path");
-var WebpackSprocketsRailsManifestPlugin = require("webpack-sprockets-rails-manifest-plugin");
 
 var config = {
   context: __dirname,
@@ -47,9 +46,7 @@ var config = {
   // Other config ...
 
   plugins: [
-    new WebpackSprocketsRailsManifestPlugin(),
-
-    new WebpackCopyAfterBuildPlugin('done', {
+    new WebpackCopyOnPlugin('done', {
       "webpack-application-bundle":
       "../../copy/to/this/path/webpack-application-bundle.js",
     }, {
